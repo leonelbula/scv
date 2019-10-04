@@ -131,24 +131,24 @@ $(".tablaproductoCompra tbody").on("click", "button.agregarProducto", function()
 					'<tr>'+
 							'<td class="valorivap">'+codigo+'<input  class="valoriva" type="hidden" name="valoriva"  value="'+IvaPro+'"/></td>'+
 							'<td class="costop">'+nombre+'<input  class="costo" type="hidden" name="costo"  value="'+costo+'"/></td>'+							
-							'<td class="ingresoCantidad"><input type="number" class="nuevaCantidadProducto" name="nuevaCantidadProducto"  value="1" /></td>'+							
-							'<td class="precio"><input type="number" class="precioProducto" name="precioProducto" value="'+costo+'"/></td>'+							
-							'<td class="descuentop"><input type="number" class="descuento" id="descuentoProdu" name="descuento" value="0"/></td>'+
-							'<td class="ivaProdup">'+impuesto+'<input type="hidden" class="ivaProdu" id="ivaProdu" name="ivaProdu" value="'+impuesto+'"/></td>'+
-							'<td class="nuevototalp"><input type="text" class="nuevototal"  name="nuevototal"  value="'+costo+'" readonly></td>'+
+							'<td class="ingresoCantidad"><input type="number" class="CantidadProd" name="CantidadProd"  value="1" /></td>'+							
+							'<td class="precio"><input type="number" class="costoProducto" name="costoProducto" value="'+costo+'"/></td>'+							
+							'<td class="descuentop"><input type="number" class="descuento" id="descuentoProduC" name="descuento" value="0"/></td>'+
+							'<td class="IvaproductoCp">'+impuesto+'<input type="hidden" class="IvaproductoC" id="IvaproductoC" name="IvaproductoC" value="'+impuesto+'"/></td>'+
+							'<td class="nuevototalp"><input type="text" class="nuevototalC"  name="nuevototalC"  value="'+costo+'" readonly></td>'+
 							'<td><button class="btn btn-danger quitarProducto" idProducto="'+idProducto+'"><i class="fa fa-times"></i></button></td>'+
 							'<input  class="nombreProduc" type="hidden" name="nombreProduc" value="'+nombre+'"/>'+
 							'<input  class="idProductoVenta" type="hidden" name="idProductoVenta" value="'+idProducto+'"/>'+	
 							'<input  class="codigo" type="hidden" name="codigo" value="'+codigo+'"/>'+
 					'</tr>'
 					)
-			sumarTotalPrecios()
+			sumarTotalPreciosCompra()
 			
-			agregarImpuesto()
+			agregarImpuestoCompra()
 			
-			listarProductos()
+			listarProductosCompra()
 			
-			$(".nuevototal").number(true);
+			$(".nuevototalC").number(true);
 			
 			
 			
@@ -241,27 +241,27 @@ $(".formularioCompra").on("click", "button.quitarProducto", function(){
 	if($(".nuevoProducto").children().length == 0){
 
 		$("#nuevoImpuestoVenta").val(0);
-		$("#nuevoTotalVenta").val(0);
-		$("#nuevoSubtotal").val(0);
-		$("#SubVenta").val(0);
+		$("#nuevoTotalCompra").val(0);
+		$("#nuevoSubtotalCompra").val(0);
+		$("#SubCompra").val(0);
 		$("#ivaVenta").val(0);
-		$("#totalVenta").val(0);
-		//$("#nuevoTotalVenta").attr("total",0);
+		$("#totalCompra").val(0);
+		//$("#nuevoTotalCompra").attr("total",0);
 
 	}else{
 
 		// SUMAR TOTAL DE PRECIOS
 
-    	sumarTotalPrecios()
+    	sumarTotalPreciosCompra()
 		
 		
     	// AGREGAR IMPUESTO
-	     agregarImpuesto()
-       // agregarImpuesto()
+	     agregarImpuestoCompra()
+       // agregarImpuestoCompra()
 
         // AGRUPAR PRODUCTOS EN FORMATO JSON
 
-        listarProductos()
+        listarProductosCompra()
 
 	}
 
@@ -272,19 +272,19 @@ $(".formularioCompra").on("click", "button.quitarProducto", function(){
 MODIFICAR LA CANTIDAD
 =============================================*/
 
-$(".formularioCompra").on("change", "input.nuevaCantidadProducto", function(){
+$(".formularioCompra").on("change", "input.CantidadProd", function(){
 	
-	//var elemt= $(this).parent().parent().children().children(".precioProducto");
-	var precio = $(this).parent().parent().children().children(".precioProducto");
-	var subtotalP = $(this).parent().parent().children().children(".nuevototal");
+	//var elemt= $(this).parent().parent().children().children(".costoProducto");
+	var precio = $(this).parent().parent().children().children(".costoProducto");
+	var subtotalP = $(this).parent().parent().children().children(".nuevototalC");
 	var descuentoP = $(this).parent().parent().children().children(".descuento");
-	var valorIva = $(this).parent().parent().children().children(".ivaProdu");
+	var valorIva = $(this).parent().parent().children().children(".IvaproductoC");
 	var TotalIvaP = $(this).parent().parent().children().children(".valoriva");
 	
 	var ivaAplicado = $("#tipoIva").val();
 	
 	var cantidad = $(this).val();
-	var precioProducto = precio.val();
+	var costoProducto = precio.val();
 	var descuento = descuentoP.val();
 	var valorIvapor = valorIva.val();
 	
@@ -302,9 +302,9 @@ $(".formularioCompra").on("change", "input.nuevaCantidadProducto", function(){
 		$(this).val(1);
 		
 		var cantidad = $(this).val();
-		var precioProducto = precio.val();
+		var costoProducto = precio.val();
 		
-		var subtotal = parseInt(cantidad * precioProducto);	
+		var subtotal = parseInt(cantidad * costoProducto);	
 		
 		if(ivaAplicado == 1){
 			
@@ -328,11 +328,11 @@ $(".formularioCompra").on("change", "input.nuevaCantidadProducto", function(){
 		subtotalP.val(subtotal);
 		//TotalIvaP.val(TotalIva);
 		
-		sumarTotalPrecios()
-		agregarImpuesto()
+		sumarTotalPreciosCompra()
+		agregarImpuestoCompra()
 		 // AGRUPAR PRODUCTOS EN FORMATO JSON
 
-        listarProductos()
+        listarProductosCompra()
 		
 		swal({
 	      title: "La cantidad no puede ser cero",
@@ -346,7 +346,7 @@ $(".formularioCompra").on("change", "input.nuevaCantidadProducto", function(){
 	
 	if(descuento != 0){
 		
-		var subtotal = parseInt(cantidad * (precioProducto -(precioProducto * descuento/100)));
+		var subtotal = parseInt(cantidad * (costoProducto -(costoProducto * descuento/100)));
 		
 		if(ivaAplicado == 1){
 			
@@ -364,10 +364,10 @@ $(".formularioCompra").on("change", "input.nuevaCantidadProducto", function(){
 		//console.log("valorIva",TotalIva);
 	}else{
 	
-		var subtotal = parseInt(cantidad * precioProducto);
+		var subtotal = parseInt(cantidad * costoProducto);
 		
 		if(ivaAplicado == 1){
-			var subtotal = parseInt(cantidad * precioProducto);
+			var subtotal = parseInt(cantidad * costoProducto);
 			
 			var ivaValor = valorIva.val();
 			var ValorCalculo = Number((100 + parseInt(ivaValor))/100);
@@ -378,7 +378,7 @@ $(".formularioCompra").on("change", "input.nuevaCantidadProducto", function(){
 			
 			
 		}else{
-			var subtotal = parseInt(cantidad * precioProducto);
+			var subtotal = parseInt(cantidad * costoProducto);
 			var TotalIva = parseInt(Number(subtotal * ivaValor/100));	
 			TotalIvaP.val(TotalIva);
 		}
@@ -387,30 +387,30 @@ $(".formularioCompra").on("change", "input.nuevaCantidadProducto", function(){
 	}
 	
 	
-	//$(this).attr("descuentoProdu", valorDescuento);
+	//$(this).attr("descuentoProduC", valorDescuento);
 	subtotalP.val(subtotal);
 	
 	
 	
-		sumarTotalPrecios()
+		sumarTotalPreciosCompra()
 		
-		agregarImpuesto()
+		agregarImpuestoCompra()
 	 // AGRUPAR PRODUCTOS EN FORMATO JSON
 
-        listarProductos()
+        listarProductosCompra()
 	
 })
 /*=============================================
 MODIFICAR EL PRECIO
 =============================================*/
 
-$(".formularioCompra").on("change", "input.precioProducto", function(){
+$(".formularioCompra").on("change", "input.costoProducto", function(){
 	
 	
-	var cantidad = $(this).parent().parent().children().children(".nuevaCantidadProducto");
-	var subtotalP = $(this).parent().parent().children().children(".nuevototal");
+	var cantidad = $(this).parent().parent().children().children(".CantidadProd");
+	var subtotalP = $(this).parent().parent().children().children(".nuevototalC");
 	var descuento = $(this).parent().parent().children().children(".descuento");
-	var valorIva = $(this).parent().parent().children().children(".ivaProdu");
+	var valorIva = $(this).parent().parent().children().children(".IvaproductoC");
 	var costo = $(this).parent().parent().children().children(".costo");
 	var TotalIvaP = $(this).parent().parent().children().children(".valoriva");
 	
@@ -418,7 +418,7 @@ $(".formularioCompra").on("change", "input.precioProducto", function(){
 	
 	var descuento = descuento.val();
 	var cantidad = cantidad.val();	
-	var precioProducto = $(this).val();
+	var costoProducto = $(this).val();
 	var valorCosto = costo.val();
 	//var TotalivaP = TotalIva.val();
 	
@@ -434,7 +434,7 @@ $(".formularioCompra").on("change", "input.precioProducto", function(){
 		
 		//$(this).val(valorCosto);
 		
-		var precioProducto = $(this).val(valorCosto);		
+		var costoProducto = $(this).val(valorCosto);		
 				
 		var subtotal = parseInt(cantidad * valorCosto);	
 		
@@ -451,13 +451,13 @@ $(".formularioCompra").on("change", "input.precioProducto", function(){
 				
 		subtotalP.val(subtotal);
 		
-		sumarTotalPrecios()
+		sumarTotalPreciosCompra()
 		
-		agregarImpuesto()
+		agregarImpuestoCompra()
 		
 		 // AGRUPAR PRODUCTOS EN FORMATO JSON
 
-        listarProductos()
+        listarProductosCompra()
 		
 		swal({
 	      title: "El precio esta por debajo del costo",
@@ -473,7 +473,7 @@ $(".formularioCompra").on("change", "input.precioProducto", function(){
 	
 	if(descuento != 0){				
 		
-		var subtotal = parseInt(cantidad * (precioProducto -(precioProducto * descuento/100)));
+		var subtotal = parseInt(cantidad * (costoProducto -(costoProducto * descuento/100)));
 		
 		if(ivaAplicado == 1){
 			
@@ -488,24 +488,24 @@ $(".formularioCompra").on("change", "input.precioProducto", function(){
 		}
 		
 	}else{		
-		var subtotal = parseInt(cantidad * precioProducto);
+		var subtotal = parseInt(cantidad * costoProducto);
 		
 		var valor = parseInt(subtotal / ValorCalculo);
 		var TotalIva = parseInt(subtotal - valor);
 	}
-	//var subtotal = cantidad * precioProducto;
+	//var subtotal = cantidad * costoProducto;
 	
 	
 	subtotalP.val(subtotal);
 	TotalIvaP.val(TotalIva);
 	//console.log("cantidad",cantidad);
-	//console.log("precio",precioProducto);
+	//console.log("precio",costoProducto);
 	//console.log("descuento",valorDescuento);
-	sumarTotalPrecios()
-	agregarImpuesto()
+	sumarTotalPreciosCompra()
+	agregarImpuestoCompra()
 	// AGRUPAR PRODUCTOS EN FORMATO JSON
 
-    listarProductos()
+    listarProductosCompra()
 	
 })
 /*=============================================
@@ -515,10 +515,10 @@ MODIFICAR EL DESCUENTO
 $(".formularioCompra").on("change", "input.descuento", function(){
 	
 	
-	var cantidad = $(this).parent().parent().children().children(".nuevaCantidadProducto");
-	var precio = $(this).parent().parent().children().children(".precioProducto");
-	var subtotalP = $(this).parent().parent().children().children(".nuevototal");
-	var valorIva = $(this).parent().parent().children().children(".ivaProdu");
+	var cantidad = $(this).parent().parent().children().children(".CantidadProd");
+	var precio = $(this).parent().parent().children().children(".costoProducto");
+	var subtotalP = $(this).parent().parent().children().children(".nuevototalC");
+	var valorIva = $(this).parent().parent().children().children(".IvaproductoC");
 	var TotalIvaP = $(this).parent().parent().children().children(".valoriva");
 	
 	var ivaAplicado = $("#tipoIva").val();
@@ -555,20 +555,20 @@ $(".formularioCompra").on("change", "input.descuento", function(){
 	//console.log("boton",precioP);
 	//console.log("descuento",valorDescuento);
 	
-		sumarTotalPrecios()
+		sumarTotalPreciosCompra()
 	
-		agregarImpuesto()
+		agregarImpuestoCompra()
 	 // AGRUPAR PRODUCTOS EN FORMATO JSON
 
-        listarProductos()
+        listarProductosCompra()
 })
 
 /*=============================================
 SUMAR TODOS LOS PRECIOS
 =============================================*/
-function sumarTotalPrecios(){
+function sumarTotalPreciosCompra(){
 	var ivaAplicado = $("#tipoIva").val();
-	var precioItem = $(".nuevototal");
+	var precioItem = $(".nuevototalC");
 	var arraySumaPrecio = [];  
 	
 	for(var i = 0; i < precioItem.length; i++){
@@ -584,11 +584,11 @@ function sumarTotalPrecios(){
 	var sumaTotalPrecio = arraySumaPrecio.reduce(sumaArrayPrecios);
 	//console.log("sub total",sumaTotalPrecio)
 	if(ivaAplicado == 1){
-		$("#nuevoTotalVenta").val(sumaTotalPrecio);
-		$("#totalVenta").val(sumaTotalPrecio);
+		$("#nuevoTotalCompra").val(sumaTotalPrecio);
+		$("#totalCompra").val(sumaTotalPrecio);
 	}else{
-		$("#nuevoSubtotal").val(sumaTotalPrecio);
-		$("#SubVenta").val(sumaTotalPrecio);
+		$("#nuevoSubtotalCompra").val(sumaTotalPrecio);
+		$("#SubCompra").val(sumaTotalPrecio);
 	}
 	var cliente = $(".proveedor").val();
 	$("#proveedorCompraN").val(cliente);
@@ -599,7 +599,7 @@ function sumarTotalPrecios(){
 		
 		
 
-function agregarImpuesto(){
+function agregarImpuestoCompra(){
 	
 	var ivaAplicado = $("#tipoIva").val();
 	
@@ -621,31 +621,31 @@ function agregarImpuesto(){
 	$("#ivaVenta").val(sumaTotalIva);
 	
 	if(ivaAplicado == 1){
-		var SubtotalVenta =  Number($("#nuevoTotalVenta").val() - $("#nuevoImpuestoVenta").val());
+		var SubtotalVenta =  Number($("#nuevoTotalCompra").val() - $("#nuevoImpuestoVenta").val());
 		//console.log("sub iva",sumaTotalIva)
-		$("#nuevoSubtotal").val(SubtotalVenta);
-		$("#SubVenta").val(SubtotalVenta);
+		$("#nuevoSubtotalCompra").val(SubtotalVenta);
+		$("#SubCompra").val(SubtotalVenta);
 	}else{
-		var SubtotalVenta =  Number($("#nuevoSubtotal").val() + $("#nuevoImpuestoVenta").val());
-		$("#nuevoTotalVenta").val(SubtotalVenta);
-		$("#totalVenta").val(SubtotalVenta);
+		var SubtotalVenta =  Number($("#nuevoSubtotalCompra").val() + $("#nuevoImpuestoVenta").val());
+		$("#nuevoTotalCompra").val(SubtotalVenta);
+		$("#totalCompra").val(SubtotalVenta);
 	}
 }
 
-$(".nuevoTotalVenta").number(true);
-$(".nuevoSubtotal").number(true);
+$(".nuevoTotalCompra").number(true);
+$(".nuevoSubtotalCompra").number(true);
 $(".nuevoImpuestoVenta").number(true);
 
-function listarProductos(){
+function listarProductosCompra(){
 	var listaProductos = [];
 	var id = $(".idProductoVenta");	
 	var codigo = $(".codigo");	
 	var descuento = $(".descuento");	
 	var descripcion = $(".nombreProduc");
-	var cantidad = $(".nuevaCantidadProducto");
-	var precio = $(".precioProducto");
-	var impuesto = $(".ivaProdu");
-	var subTotal = $(".nuevototal");
+	var cantidad = $(".CantidadProd");
+	var precio = $(".costoProducto");
+	var impuesto = $(".IvaproductoC");
+	var subTotal = $(".nuevototalC");
 	
 	for(var i = 0; i < descripcion.length; i++){
 

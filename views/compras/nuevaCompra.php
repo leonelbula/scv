@@ -168,8 +168,8 @@
 						<tr class="l-subtotal">
 							<th class="descuento-v" style="width:50%">Subtotal:</th>
 							<td class="descuento-v">								
-								<input type="text" class="form-control input-lg nuevoSubtotal" id="nuevoSubtotal" name="nuevoSubtotal" value="0" readonly/>
-								<input type="hidden" name="SubVenta" id="SubVenta">
+								<input type="text" class="form-control input-lg nuevoSubtotalCompra" id="nuevoSubtotalCompra" name="nuevoSubtotalCompra" value="0" readonly/>
+								<input type="hidden" name="SubCompra" id="SubCompra">
 							</td>
 						</tr>
 						<tr class="l-iva">
@@ -182,8 +182,8 @@
 						<tr class="l-total">
 							<th class="total-t">TOTAL:</th>
 							<td class="total-v">
-								  <input type="hidden" name="totalVenta" id="totalVenta">
-								<input type="text" class="form-control input-lg nuevoTotalVenta" id="nuevoTotalVenta" name="nuevoTotalVenta" value="0" readonly/>
+								  <input type="hidden" name="totalCompra" id="totalCompra">
+								<input type="text" class="form-control input-lg nuevoTotalCompra" id="nuevoTotalCompra" name="nuevoTotalCompra" value="0" readonly/>
 							</td>
 						</tr>
 					</table>

@@ -1,8 +1,8 @@
-$(".formularioVenta").on("change", "input.costo", function(){
-	var costo =  document.getElementById("costo").value;
-	
-	console.log("costo",costo)
-})
+//$(".formularioVenta").on("change", "input.costo", function(){
+//	var costo =  document.getElementById("costo").value;
+//	
+//	console.log("costo",costo)
+//})
 
 
 

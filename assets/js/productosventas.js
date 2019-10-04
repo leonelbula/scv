@@ -584,7 +584,7 @@ function sumarTotalPrecios(){
 
 	}
 	var sumaTotalPrecio = arraySumaPrecio.reduce(sumaArrayPrecios);
-	//console.log("sub total",sumaTotalPrecio)
+	console.log("sub total",sumaTotalPrecio)
 	if(ivaAplicado == 1){
 		$("#nuevoTotalVenta").val(sumaTotalPrecio);
 		$("#totalVenta").val(sumaTotalPrecio);

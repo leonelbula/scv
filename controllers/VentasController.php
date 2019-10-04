@@ -175,11 +175,13 @@ class VentasController{
 				$fecha = date('Y-m-d');
 				$fechaActual = strtotime('+'.$dias.' day', strtotime($fecha));
 				$fecha_vencimiento = date('Y-m-d', $fechaActual);
+				$saldo = $valorVenta;
 				
 			} else {
 				$fecha = date('Y-m-d');
 				$fecha_vencimiento = date('Y-m-d');					
 				$id_plazo = 0;
+				$saldo = 0;
 			}
 			date_default_timezone_set('America/Bogota');
 			
@@ -196,6 +198,7 @@ class VentasController{
 			$venta->setSub_total($subTotalVenta);
 			$venta->setIva($impuesto);
 			$venta->setTotal($valorVenta);
+			$venta->setSaldo($saldo);
 			$venta->setUtilidad($TotalUtilidad);
 			//var_dump($venta);
 			
@@ -392,11 +395,13 @@ class VentasController{
 				$fecha = date('Y-m-d');
 				$fechaActual = strtotime('+'.$dias.' day', strtotime($fecha));
 				$fecha_vencimiento = date('Y-m-d', $fechaActual);
+				$saldo = $valorVenta;
 				
 			} else {
 				$fecha = date('Y-m-d');
 				$fecha_vencimiento = date('Y-m-d');					
 				$id_plazo = 0;
+				$saldo = 0;
 			}
 			date_default_timezone_set('America/Bogota');
 			$fechaActualFact = date('Y-m-d H:i:s');

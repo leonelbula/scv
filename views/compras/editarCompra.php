@@ -158,12 +158,12 @@
 								echo '<tr>
 										<td class="valorivap">'.$value['codigo'].'<input  class="valoriva" type="hidden" name="valoriva"  value="'.$value['impuesto'].'"/></td>
 										<td class="costop">'.$value['descripcion'].'<input  class="costo" type="hidden" name="costo"  value="'.$value['precio'].'"/></td>							
-										<td class="ingresoCantidad"><input type="number" class="nuevaCantidadProducto" name="nuevaCantidadProducto" stock="'.$stock.'" value="'.$value['cantidad'].'" /></td>
+										<td class="ingresoCantidad"><input type="number" class="CantidadProd" name="CantidadProd" stock="'.$stock.'" value="'.$value['cantidad'].'" /></td>
 										
-										<td class="precio"><input type="number" class="precioProducto" name="precioProducto" value="'.$value['precio'].'"/></td>							
-										<td class="descuentop"><input type="number" class="descuento" id="descuentoProdu" name="descuento" value="'.$value['descuento'].'"/></td>
-										<td class="ivaProdup">'.$value['impuesto'].'<input type="hidden" class="ivaProdu" id="ivaProdu" name="ivaProdu" value="'.$value['impuesto'].'"/></td>
-										<td class="nuevototalp"><input type="text" class="nuevototal"  name="nuevototal"  value="'.$value['subtotal'].'" readonly></td>
+										<td class="precio"><input type="number" class="costoProducto" name="costoProducto" value="'.$value['precio'].'"/></td>							
+										<td class="descuentop"><input type="number" class="descuento" id="descuentoProduC" name="descuento" value="'.$value['descuento'].'"/></td>
+										<td class="IvaproductoCp">'.$value['impuesto'].'<input type="hidden" class="IvaproductoC" id="IvaproductoC" name="IvaproductoC" value="'.$value['impuesto'].'"/></td>
+										<td class="nuevototalp"><input type="text" class="nuevototalC"  name="nuevototalC"  value="'.$value['subtotal'].'" readonly></td>
 										<td><button class="btn btn-danger quitarProducto" idProducto="'.$value['id'].'"><i class="fa fa-times"></i></button></td>
 										<input  class="nombreProduc" type="hidden" name="nombreProduc" value="'.$value['descripcion'].'"/>
 										<input  class="idProductoVenta" type="hidden" name="idProductoVenta" value="'.$value['id'].'"/>
@@ -235,8 +235,8 @@
 						<tr class="l-subtotal">
 							<th class="descuento-v" style="width:50%">Subtotal:</th>
 							<td class="descuento-v">								
-								<input type="text" class="form-control input-lg nuevoSubtotal" id="nuevoSubtotal" name="nuevoSubtotal" value="<?=$sub_total?>" readonly/>
-								<input type="hidden" name="SubVenta" id="SubVenta" value="<?=$sub_total?>">
+								<input type="text" class="form-control input-lg nuevoSubtotalCompra" id="nuevoSubtotalCompra" name="nuevoSubtotalCompra" value="<?=$sub_total?>" readonly/>
+								<input type="hidden" name="SubCompra" id="SubCompra" value="<?=$sub_total?>">
 							</td>
 						</tr>
 						<tr class="l-iva">
@@ -249,8 +249,8 @@
 						<tr class="l-total">
 							<th class="total-t">TOTAL:</th>
 							<td class="total-v">
-								  <input type="hidden" name="totalVenta" id="totalVenta" value="<?=$total?>">
-								<input type="text" class="form-control input-lg nuevoTotalVenta" id="nuevoTotalVenta" name="nuevoTotalVenta" value="<?=$total?>" readonly/>
+								  <input type="hidden" name="totalCompra" id="totalCompra" value="<?=$total?>">
+								<input type="text" class="form-control input-lg nuevoTotalCompra" id="nuevoTotalCompra" name="nuevoTotalCompra" value="<?=$total?>" readonly/>
 							</td>
 						</tr>
 					</table>

@@ -45,16 +45,61 @@ class UsuarioController{
 						</script>';
 						//header("location:" . URL_BASE . "frontend/principal");
 					} else {
-						header('Location:' . URL_BASE);
+						echo'<script>
+
+								swal({
+									  type: "error",
+									  title: "¡Credenciales de acceso incorrectas !",
+									  showConfirmButton: true,
+									  confirmButtonText: "Cerrar"
+									  }).then(function(result){
+										if (result.value) {
+
+										window.location = "'. URL_BASE.'";
+
+										}
+									})
+
+							</script>';
 					}
 					
 				} else {
 
-					header('Location:' . URL_BASE);
+					echo'<script>
+
+								swal({
+									  type: "error",
+									  title: "¡Credenciales de acceso incorrectas !",
+									  showConfirmButton: true,
+									  confirmButtonText: "Cerrar"
+									  }).then(function(result){
+										if (result.value) {
+
+										window.location = "'. URL_BASE.'";
+
+										}
+									})
+
+							</script>';
 				}
 			}
 		}else{
-			header('Location:' . URL_BASE);
+			echo'<script>
+
+								swal({
+									  type: "error",
+									  title: "¡Credenciales de acceso incorrectas !",
+									  showConfirmButton: true,
+									  confirmButtonText: "Cerrar"
+									  }).then(function(result){
+										if (result.value) {
+
+										window.location = "'. URL_BASE.'";
+
+										}
+									})
+
+							</script>';
 		}
 	}
 	public function Guardar() {

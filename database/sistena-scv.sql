@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-09-2019 a las 12:58:09
+-- Tiempo de generación: 04-10-2019 a las 12:10:54
 -- Versión del servidor: 5.7.26
 -- Versión de PHP: 7.2.18
 
@@ -21,6 +21,54 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sistema_bar`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `abono_compras`
+--
+
+DROP TABLE IF EXISTS `abono_compras`;
+CREATE TABLE IF NOT EXISTS `abono_compras` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_factura` int(11) NOT NULL,
+  `valor` int(11) NOT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `abono_compras`
+--
+
+INSERT INTO `abono_compras` (`id`, `id_factura`, `valor`, `descripcion`, `fecha`) VALUES
+(3, 1, 28000, 'abono a factura', '2019-09-16');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `abono_venta`
+--
+
+DROP TABLE IF EXISTS `abono_venta`;
+CREATE TABLE IF NOT EXISTS `abono_venta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_factura` int(11) NOT NULL,
+  `valor` int(11) NOT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `abono_venta`
+--
+
+INSERT INTO `abono_venta` (`id`, `id_factura`, `valor`, `descripcion`, `fecha`) VALUES
+(1, 1, 63000, 'abono a factura', '2019-10-03'),
+(2, 1, 50000, 'abono a factura', '2019-10-03'),
+(4, 1, 30000, 'abonos a factura', '2019-10-03');
 
 -- --------------------------------------------------------
 
@@ -94,16 +142,24 @@ CREATE TABLE IF NOT EXISTS `compra` (
   `sub_total` int(255) DEFAULT NULL,
   `iva` int(255) DEFAULT NULL,
   `total` int(255) DEFAULT NULL,
+  `saldo` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_proveedor` (`id_proveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `compra`
 --
 
-INSERT INTO `compra` (`id`, `numero_factura`, `fecha`, `hora`, `tipo`, `plazo`, `fecha_vencimiento`, `id_proveedor`, `detalle_compra`, `sub_total`, `iva`, `total`) VALUES
-(1, 44545, '2019-09-07', '06:59:54', 1, 4, '2019-10-07', 1, '[{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"90\",\"precio\":\"5000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"450000\"},{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"precio\":\"41000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"410000\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"5\",\"precio\":\"38500\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"192500\"}]', 980613, 71887, 1052500);
+INSERT INTO `compra` (`id`, `numero_factura`, `fecha`, `hora`, `tipo`, `plazo`, `fecha_vencimiento`, `id_proveedor`, `detalle_compra`, `sub_total`, `iva`, `total`, `saldo`) VALUES
+(1, 44545, '2019-08-07', '06:59:54', 1, 4, '2019-10-07', 1, '[{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"90\",\"precio\":\"5000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"450000\"},{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"precio\":\"41000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"410000\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"5\",\"precio\":\"38500\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"192500\"}]', 980613, 71887, 1052500, 1024500),
+(2, 545554587, '2019-05-23', '07:15:03', 1, 5, '2019-10-27', 2, '[{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"1\",\"precio\":\"190\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"190\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"1\",\"precio\":\"38500\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"38500\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"1\",\"precio\":\"35000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"35000\"}]', 58574, 15116, 73690, 73690),
+(3, 1054500, '2019-08-21', '11:09:06', 1, 1, '2019-10-26', 1, '[{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"90\",\"precio\":\"5000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"450000\"},{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"precio\":\"41000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"410000\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"5\",\"precio\":\"38500\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"192500\"}]', 1500, 1500, 1558400, 458000),
+(4, 1054500, '2019-08-23', '11:09:06', 1, 1, '2019-10-26', 2, '[{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"90\",\"precio\":\"5000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"450000\"},{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"precio\":\"41000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"410000\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"5\",\"precio\":\"38500\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"192500\"}]', 1500, 1500, 305450, 305450),
+(5, 656644, '2019-09-21', '11:09:06', 1, 1, '2019-10-26', 2, '[{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"90\",\"precio\":\"5000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"450000\"},{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"precio\":\"41000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"410000\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"5\",\"precio\":\"38500\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"192500\"}]', 1500, 1500, 258400, 258400),
+(6, 1054503, '2019-09-21', '11:09:06', 1, 1, '2019-10-26', 1, '[{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"90\",\"precio\":\"5000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"450000\"},{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"precio\":\"41000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"410000\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"5\",\"precio\":\"38500\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"192500\"}]', 1500, 1500, 1545000, 1545000),
+(7, 104545, '2019-10-04', '05:47:25', 1, 4, '2019-11-03', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"3\",\"precio\":\"41000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"123000\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"2\",\"precio\":\"35000\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"70000\"}]', 162184, 30816, 193000, 193000),
+(8, 203451, '2019-10-04', '07:04:48', 1, 3, '2019-10-19', 1, '[{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"100\",\"precio\":\"190\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"19000\"}]', 15966, 3034, 19000, 19000);
 
 -- --------------------------------------------------------
 
@@ -119,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `compras_cliente` (
   `num_factura` int(11) NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `compras_cliente`
@@ -131,7 +187,13 @@ INSERT INTO `compras_cliente` (`id`, `id_cliente`, `valor`, `num_factura`, `fech
 (3, 4, 277562, 1003, '2019-07-20'),
 (6, 1, 1280695, 1004, '2019-07-22'),
 (7, 1, 303419, 1005, '2019-07-22'),
-(8, 1, 61542, 1006, '2019-09-03');
+(8, 1, 61542, 1006, '2019-09-03'),
+(9, 1, 99484, 1007, '2019-09-12'),
+(10, 1, 107761, 1008, '2019-09-12'),
+(11, 2, 339915, 1009, '2019-09-12'),
+(12, 5, 94671, 1010, '2019-09-12'),
+(13, 4, 53669, 1011, '2019-09-12'),
+(15, 2, 579080, 1012, '2019-10-04');
 
 -- --------------------------------------------------------
 
@@ -147,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `compra_producto` (
   `num_factura` int(11) NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `compra_producto`
@@ -156,7 +218,11 @@ CREATE TABLE IF NOT EXISTS `compra_producto` (
 INSERT INTO `compra_producto` (`id`, `id_producto`, `cantidad`, `num_factura`, `fecha`) VALUES
 (48, 3, 5, 44545, '2019-09-07'),
 (47, 1, 10, 44545, '2019-09-07'),
-(46, 5, 90, 44545, '2019-09-07');
+(46, 5, 90, 44545, '2019-09-07'),
+(49, 4, 1, 545554587, '2019-09-12'),
+(50, 3, 1, 545554587, '2019-09-12'),
+(51, 2, 1, 545554587, '2019-09-12'),
+(54, 4, 100, 203451, '2019-10-04');
 
 -- --------------------------------------------------------
 
@@ -167,19 +233,22 @@ INSERT INTO `compra_producto` (`id`, `id_producto`, `cantidad`, `num_factura`, `
 DROP TABLE IF EXISTS `compra_proveedor`;
 CREATE TABLE IF NOT EXISTS `compra_proveedor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_proveeor` int(11) NOT NULL,
+  `id_proveedor` int(11) NOT NULL,
   `valor` int(11) NOT NULL,
   `num_fectura` int(11) NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `compra_proveedor`
 --
 
-INSERT INTO `compra_proveedor` (`id`, `id_proveeor`, `valor`, `num_fectura`, `fecha`) VALUES
-(3, 1, 1102500, 44545, '2019-09-07');
+INSERT INTO `compra_proveedor` (`id`, `id_proveedor`, `valor`, `num_fectura`, `fecha`) VALUES
+(3, 1, 1102500, 44545, '2019-09-07'),
+(4, 2, 73690, 545554587, '2019-09-12'),
+(5, 1, 193000, 104545, '2019-10-04'),
+(6, 1, 19000, 203451, '2019-10-04');
 
 -- --------------------------------------------------------
 
@@ -252,6 +321,21 @@ CREATE TABLE IF NOT EXISTS `devol_proveedor` (
   PRIMARY KEY (`id`),
   KEY `id_proveedor` (`id_proveedor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gastos`
+--
+
+DROP TABLE IF EXISTS `gastos`;
+CREATE TABLE IF NOT EXISTS `gastos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` text COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
+  `valor` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -3005,19 +3089,20 @@ CREATE TABLE IF NOT EXISTS `product` (
   `cantidad_min` int(255) DEFAULT NULL,
   `precio_v_iva1` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `product`
 --
 
 INSERT INTO `product` (`id`, `id_vendor`, `codigo`, `nombre`, `costo`, `precio_1`, `utilidad_1`, `id_categoria`, `can_inicial`, `impuesto`, `imagen`, `codigo_fabr`, `cantidad_min`, `precio_v_iva1`) VALUES
-(1, 1, '1001', 'llanta 300x17 h882 chaoyang', 41000, 45100, 10, 2, 148, 19, 'llanta300x17h882.jpg', '302121', 10, 53669),
-(2, 1, '1002', 'llanta 250x17 taco h871', 35000, 38500, 10, 2, 25, 19, '275x17h882.jpg', '302121', 10, 45815),
-(3, 2, '1003', 'llanta 275x17 H626 lagarto chaoyan ', 38500, 40810, 6, 2, 85, 19, 'H626.jpg', '202525', 10, 48563),
-(4, 1, '1004', 'gusanillo automatico', 190, 247, 30, 4, 335, 19, '699.jpg', '1105050', 100, 293),
-(5, 1, '1001', 'producto editado', 5000, 5500, 10, 2, 389, 19, '', '25424', 200, 6545),
-(6, 1, '1006', 'producto prueba', 5000, 5500, 10, 2, 199, 19, '', '25424', 10, 6545);
+(1, 1, '1001', 'llanta 300x17 h882 chaoyang', 41000, 45100, 10, 2, 128, 19, 'llanta300x17h882.jpg', '302121', 10, 53669),
+(2, 1, '1002', 'llanta 250x17 taco h871', 35000, 38500, 10, 2, 24, 19, '275x17h882.jpg', '302121', 10, 45815),
+(3, 2, '1003', 'llanta 275x17 H626 lagarto chaoyan ', 38500, 40810, 6, 2, 82, 19, 'H626.jpg', '202525', 10, 48563),
+(4, 1, '1004', 'gusanillo automatico', 190, 247, 30, 4, 214, 19, '699.jpg', '1105050', 100, 293),
+(5, 1, '1001', 'producto editado', 5000, 5500, 10, 2, 364, 19, '', '25424', 200, 6545),
+(6, 1, '1006', 'producto prueba', 5000, 5500, 10, 2, 197, 19, '', '25424', 10, 6545),
+(7, 0, '1007', 'juego de freno mtb ', 30000, 45000, 50, 2, 50, 19, '', '4545', 10, 53550);
 
 -- --------------------------------------------------------
 
@@ -3046,8 +3131,8 @@ CREATE TABLE IF NOT EXISTS `proveedor` (
 --
 
 INSERT INTO `proveedor` (`id`, `nombre`, `nit`, `direccion`, `departamento`, `ciudad`, `email`, `telefono`, `vendedor`, `tel_vendedor`, `impuesto`) VALUES
-(1, 'proveedor de articulo', '7845478454', 'carrera 11A #21 - 20', 'antioquia', 'medellin', 'proveedor@gmail.com', '(303) 761-7123', 'leonel bula ', '(300) 741-2721', 19),
-(2, 'prueba de proveedor', '7845478454', 'carrera 11A #21 - 20', 'cordoba', 'sahagun', 'leonelbula@gmail.com', '(303) 474-5755', 'leonel bula ', '(300) 741-2721', 19);
+(1, 'distribuidora sahagun', '7845478454', 'carrera 11A #21 - 20', 'antioquia', 'medellin', 'proveedor@gmail.com', '(303) 761-7123', 'leonel bula ', '(300) 741-2721', 19),
+(2, 'comercializadora Colombia', '7845478454', 'carrera 11A #21 - 20', 'cordoba', 'sahagun', 'leonelbula@gmail.com', '(303) 474-5755', 'leonel bula ', '(300) 741-2721', 19);
 
 -- --------------------------------------------------------
 
@@ -3126,7 +3211,7 @@ CREATE TABLE IF NOT EXISTS `vanta_producto` (
   `num_factura` int(11) NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `vanta_producto`
@@ -3152,7 +3237,30 @@ INSERT INTO `vanta_producto` (`id`, `id_producto`, `cantidad`, `num_factura`, `f
 (52, 2, 1, 1006, '2019-09-03'),
 (53, 5, 1, 1006, '2019-09-03'),
 (54, 4, 10, 1006, '2019-09-03'),
-(55, 6, 1, 1006, '2019-09-03');
+(55, 6, 1, 1006, '2019-09-03'),
+(56, 1, 1, 1007, '2019-09-12'),
+(57, 2, 1, 1007, '2019-09-12'),
+(58, 3, 1, 1008, '2019-09-12'),
+(59, 4, 1, 1008, '2019-09-12'),
+(60, 5, 1, 1008, '2019-09-12'),
+(61, 6, 1, 1008, '2019-09-12'),
+(62, 2, 1, 1008, '2019-09-12'),
+(63, 6, 1, 1009, '2019-09-12'),
+(64, 4, 20, 1009, '2019-09-12'),
+(65, 3, 2, 1009, '2019-09-12'),
+(66, 5, 20, 1009, '2019-09-12'),
+(67, 2, 1, 1009, '2019-09-12'),
+(68, 1, 1, 1009, '2019-09-12'),
+(69, 4, 1, 1010, '2019-09-12'),
+(70, 3, 1, 1010, '2019-09-12'),
+(71, 2, 1, 1010, '2019-09-12'),
+(72, 1, 1, 1011, '2019-09-12'),
+(73, 1, 10, 1012, '2019-10-04'),
+(74, 4, 100, 1012, '2019-10-04'),
+(75, 5, 2, 1012, '2019-10-04'),
+(76, 1, 10, 1012, '2019-10-04'),
+(77, 4, 100, 1012, '2019-10-04'),
+(78, 5, 2, 1012, '2019-10-04');
 
 -- --------------------------------------------------------
 
@@ -3174,21 +3282,28 @@ CREATE TABLE IF NOT EXISTS `venta` (
   `sub_total` int(255) DEFAULT NULL,
   `iva` int(255) DEFAULT NULL,
   `total` int(255) DEFAULT NULL,
+  `saldo` int(11) NOT NULL,
   `utilidad` int(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `venta` (`id`, `codigo`, `fecha`, `hora`, `tipo`, `id_plazo`, `fecha_vencimiento`, `id_cliente`, `detalle_venta`, `sub_total`, `iva`, `total`, `utilidad`) VALUES
-(1, 1001, '2019-07-20', '00:00:00', 0, 0, '2019-07-20', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300X17 h882 chaoyang\",\"cantidad\":\"5\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"268345\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250X17 taco h871\",\"cantidad\":\"2\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"91630\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275X17 h626 lagarto chaoyang \",\"cantidad\":\"4\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"194252\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"30\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"8790\"}]', 473122, 89895, 563017, 38422),
-(2, 1002, '2019-07-20', '00:00:00', 1, 4, '2019-08-19', 2, '[{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"2\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"91630\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 h626 lagarto chaoyang \",\"cantidad\":\"1\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"48563\"}]', 140155, 38, 140193, 9309),
-(3, 1003, '2019-07-20', '00:00:00', 1, 2, '2019-07-30', 4, '[{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250X17 taco H871\",\"cantidad\":\"5\",\"costo\":\"35000\",\"precio\":\"47897\",\"descuento\":\"5\",\"impuesto\":\"19\",\"subtotal\":\"227510\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 h626 lagarto chaoyang \",\"cantidad\":\"1\",\"costo\":\"38500\",\"precio\":\"52687\",\"descuento\":\"5\",\"impuesto\":\"19\",\"subtotal\":\"50052\"}]', 233244, 44318, 277562, 19744),
-(4, 1004, '2019-07-22', '00:00:00', 1, 4, '2019-08-21', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"536690\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"5\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"229075\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"10\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"485630\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"100\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"29300\"}]', 1076213, 204482, 1280695, 87213),
-(5, 1005, '2019-07-22', '15:16:09', 1, 6, '2019-09-20', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"2\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"107338\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"2\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"91630\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"2\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"97126\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"25\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"7325\"}]', 302192, 1227, 303419, 21223),
-(6, 1006, '2019-09-03', '05:03:29', 0, 0, '2019-09-03', 1, '[{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"1\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"45815\"},{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"1\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"6545\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"10\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"10\",\"impuesto\":\"19\",\"subtotal\":\"2637\"},{\"id\":\"6\",\"codigo\":\"1006\",\"descripcion\":\"producto prueba\",\"cantidad\":\"1\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"6545\"}]', 51715, 9827, 61542, 4815);
+INSERT INTO `venta` (`id`, `codigo`, `fecha`, `hora`, `tipo`, `id_plazo`, `fecha_vencimiento`, `id_cliente`, `detalle_venta`, `sub_total`, `iva`, `total`, `saldo`, `utilidad`) VALUES
+(1, 1001, '2019-07-20', '00:00:00', 0, 0, '2019-07-20', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300X17 h882 chaoyang\",\"cantidad\":\"5\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"268345\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250X17 taco h871\",\"cantidad\":\"2\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"91630\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275X17 h626 lagarto chaoyang \",\"cantidad\":\"4\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"194252\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"30\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"8790\"}]', 473122, 89895, 563017, 420000, 38422),
+(2, 1002, '2019-07-20', '00:00:00', 1, 4, '2019-08-19', 2, '[{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"2\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"91630\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 h626 lagarto chaoyang \",\"cantidad\":\"1\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"48563\"}]', 140155, 38, 140193, 140193, 9309),
+(3, 1003, '2019-08-20', '00:00:00', 1, 2, '2019-08-30', 4, '[{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250X17 taco H871\",\"cantidad\":\"5\",\"costo\":\"35000\",\"precio\":\"47897\",\"descuento\":\"5\",\"impuesto\":\"19\",\"subtotal\":\"227510\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 h626 lagarto chaoyang \",\"cantidad\":\"1\",\"costo\":\"38500\",\"precio\":\"52687\",\"descuento\":\"5\",\"impuesto\":\"19\",\"subtotal\":\"50052\"}]', 233244, 44318, 277562, 277652, 19744),
+(4, 1004, '2019-08-22', '00:00:00', 1, 4, '2019-09-21', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"536690\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"5\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"229075\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"10\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"485630\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"100\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"29300\"}]', 1076213, 204482, 1280695, 0, 87213),
+(5, 1005, '2019-10-22', '15:16:09', 1, 6, '2019-11-20', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"2\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"107338\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"2\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"91630\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"2\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"97126\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"25\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"7325\"}]', 302192, 1227, 303419, 0, 21223),
+(6, 1006, '2019-09-11', '05:03:29', 0, 0, '2019-09-11', 1, '[{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"1\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"45815\"},{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"1\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"6545\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"10\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"10\",\"impuesto\":\"19\",\"subtotal\":\"2637\"},{\"id\":\"6\",\"codigo\":\"1006\",\"descripcion\":\"producto prueba\",\"cantidad\":\"1\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"6545\"}]', 51715, 9827, 61542, 0, 4815),
+(7, 1007, '2019-09-12', '18:50:56', 0, 0, '2019-09-12', 1, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"1\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"53669\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"1\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"45815\"}]', 83600, 15884, 99484, 0, 7600),
+(8, 1008, '2019-09-12', '18:51:39', 1, 1, '2019-09-17', 1, '[{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"1\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"48563\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"1\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"293\"},{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"1\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"6545\"},{\"id\":\"6\",\"codigo\":\"1006\",\"descripcion\":\"producto prueba\",\"cantidad\":\"1\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"6545\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"1\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"45815\"}]', 90555, 17206, 107761, 0, 6865),
+(9, 1009, '2019-09-12', '18:52:17', 0, 0, '2019-09-12', 2, '[{\"id\":\"6\",\"codigo\":\"1006\",\"descripcion\":\"producto prueba\",\"cantidad\":\"1\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"6545\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"20\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"5860\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"2\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"97126\"},{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"20\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"130900\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"1\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"45815\"},{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"1\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"53669\"}]', 285642, 54273, 339915, 0, 23842),
+(10, 1010, '2019-09-12', '18:52:38', 0, 0, '2019-09-12', 5, '[{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"1\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"293\"},{\"id\":\"3\",\"codigo\":\"1003\",\"descripcion\":\"llanta 275x17 H626 lagarto chaoyan \",\"cantidad\":\"1\",\"costo\":\"38500\",\"precio\":\"48563\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"48563\"},{\"id\":\"2\",\"codigo\":\"1002\",\"descripcion\":\"llanta 250x17 taco h871\",\"cantidad\":\"1\",\"costo\":\"35000\",\"precio\":\"45815\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"45815\"}]', 79555, 15116, 94671, 0, 5865),
+(11, 1011, '2019-09-12', '18:53:00', 1, 6, '2019-11-11', 4, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"1\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"53669\"}]', 45100, 8569, 53669, 0, 4100),
+(12, 1012, '2019-10-04', '06:15:11', 1, 6, '2019-12-03', 2, '[{\"id\":\"1\",\"codigo\":\"1001\",\"descripcion\":\"llanta 300x17 h882 chaoyang\",\"cantidad\":\"10\",\"costo\":\"41000\",\"precio\":\"53669\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"536690\"},{\"id\":\"4\",\"codigo\":\"1004\",\"descripcion\":\"gusanillo automatico\",\"cantidad\":\"100\",\"costo\":\"190\",\"precio\":\"293\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"29300\"},{\"id\":\"5\",\"codigo\":\"1001\",\"descripcion\":\"producto editado\",\"cantidad\":\"2\",\"costo\":\"5000\",\"precio\":\"6545\",\"descuento\":\"0\",\"impuesto\":\"19\",\"subtotal\":\"13090\"}]', 486621, 92459, 579080, 579080, 47621);
 
 --
 -- Restricciones para tablas volcadas

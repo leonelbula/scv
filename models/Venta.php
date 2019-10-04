@@ -155,7 +155,7 @@ class Venta{
 	public function GuardarVenta() {
 		$sql = "INSERT INTO venta VALUES (NULL,{$this->getCodigo()},'{$this->getFecha()}','{$this->getHora()}',{$this->getTipo()},"
 		. "{$this->getId_plazo()},'{$this->getFecha_vencimiento()}',{$this->getId_cliente()},'{$this->getDetalle_venta()}',"
-		. "{$this->getSub_total()},{$this->getIva()},{$this->getTotal()},{$this->getUtilidad()})";
+		. "{$this->getSub_total()},{$this->getIva()},{$this->getTotal()},{$this->getSaldo()},{$this->getUtilidad()})";
 		$resp = $this->db->query($sql);
 		$resul = FALSE;
 		if($resp){
@@ -176,7 +176,7 @@ class Venta{
 	public function Actulizar() {
 		$sql = "UPDATE venta SET fecha='{$this->getFecha()}',hora='{$this->getHora()}',tipo={$this->getTipo()},id_plazo={$this->getId_plazo()},"
 		. "fecha_vencimiento='{$this->getFecha_vencimiento()}',detalle_venta='{$this->getDetalle_venta()}',"
-		. "sub_total={$this->getSub_total()},iva={$this->getIva()},total={$this->getTotal()},utilidad={$this->getUtilidad()} WHERE id = {$this->getId()}";
+		. "sub_total={$this->getSub_total()},iva={$this->getIva()},total={$this->getTotal()},saldo={$this->getSaldo()},utilidad={$this->getUtilidad()} WHERE id = {$this->getId()}";
 		$resp = $this->db->query($sql);
 		$resul = FALSE;
 		if($resp){

@@ -145,7 +145,7 @@
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label for="codigo_vendedor">Codigo del Vendeedor:</label>
-									<input type="number" class="form-control" name="codigo_vendedor" id="limites" required>
+									<input type="number" class="form-control" name="codigo_vendedor" id="limites">
 								</div>
 							</div>
 								<div class="col-xs-6">

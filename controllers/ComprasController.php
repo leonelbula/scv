@@ -116,9 +116,9 @@ class ComprasController{
 			}
 			
 			
-			$subTotalVenta = (int)$_POST['SubVenta'];
+			$subTotalCompra = (int)$_POST['SubCompra'];
 			$impuesto = (int)$_POST['ivaVenta'];			
-			$valorCompra = (int)$_POST['totalVenta'];
+			$valorCompra = (int)$_POST['totalCompra'];
 			$detalle_compra = $_POST["listaProductos"];
 			
 			$id_proveedor = (int)$_POST['proveedorCompraN'];
@@ -171,7 +171,7 @@ class ComprasController{
 			$compra->setFecha_vencimiento($fecha_vencimiento);
 			$compra->setId_proveedor($id_proveedor);
 			$compra->setDetalle_compra($detalle_compra);			
-			$compra->setSub_total($subTotalVenta);
+			$compra->setSub_total($subTotalCompra);
 			$compra->setIva($impuesto);
 			$compra->setTotal($valorCompra);
 			$compra->setSaldo($saldo);
@@ -191,7 +191,7 @@ class ComprasController{
 						  }).then(function(result){
 							if (result.value) {
 
-							window.location = "index";
+							window.location = "compras";
 
 							}
 						})
@@ -265,7 +265,7 @@ class ComprasController{
 			$compraProd->EliminarC();
 			
 			//actulizando la compra del cliente
-			$valor =(int)$_POST['totalVenta'];
+			$valor =(int)$_POST['totalCompra'];
 			$compraProveedor = new CompraProveedor();
 			$compraProveedor->setNum_factura($num_factura);
 			$compraProveedor->setValor($valor);
@@ -333,9 +333,9 @@ class ComprasController{
 			}
 			
 			
-			$subTotalCompra = (int)$_POST['SubVenta'];
+			$subTotalCompra = (int)$_POST['SubCompra'];
 			$impuesto = (int)$_POST['ivaVenta'];			
-			$valorCompra = (int)$_POST['totalVenta'];		
+			$valorCompra = (int)$_POST['totalCompra'];		
 			
 			
 			$tipo = (int)$_POST['tipoventa'];
