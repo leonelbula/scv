@@ -137,15 +137,15 @@ if (!isset($_SESSION['identity'])) {
         <li class="treeview">
           <a href="#">
             <i class="fa fa-th"></i>
-            <span>PEDIDOS</span>
+            <span>Gastos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?=URL_BASE?>pedido/"><i class="fa fa-circle-o"></i> Lista de Pedidos</a></li>      
-      			<li><a href="<?=URL_BASE?>mesa/"><i class="fa fa-circle-o"></i> registrar Mesas</a></li> 
-      			<li><a href="<?=URL_BASE?>reporteproductos/"><i class="fa fa-circle-o"></i> Reportes</a></li> 
+            <li><a href="<?=URL_BASE?>gastos/"><i class="fa fa-circle-o"></i>Regitrar Gastos</a></li>     
+      			
+      			<li><a href="<?=URL_BASE?>gastos/reportes"><i class="fa fa-circle-o"></i> Reportes</a></li> 
           
           </ul>
         </li>
