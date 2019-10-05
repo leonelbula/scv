@@ -45,5 +45,10 @@ class Gastos{
 	public function __construct() {
 		$this->db = Database::connect();
 	}
+	public function MostrarGastos() {
+		$sql = "SELECT * FROM gastos ORDER BY id DESC";
+		$resul = $this->db->query($sql);
+		return $resul;
+	}
 }
 

@@ -379,71 +379,90 @@ class ClienteController {
 	}
 	public function guardarabono() {
 		if (isset($_POST['id'])) {
+			
 			$id_factura = $_POST['id'];
 			$abono = (int)$_POST['valor'];			
 			$descripcion = $_POST['descripcion'];
 			$fecha = $_POST['fecha'];
 			
-			$saldoVenta = new Venta();
-			$saldoVenta->setId($id_factura);
-			$valorSald = $saldoVenta->MostrarVentasId();
-			
-			while ($row = $valorSald->fetch_object()) {
-				$saldoPendiente = (int)$row->saldo;
-			}			
-			if($saldoPendiente > $abono){
-							
-				$nuevoSaldo = $saldoPendiente - $abono;
-				$ventaAbono = new Venta();
-				$ventaAbono->setId($id_factura);
-				$ventaAbono->setSaldo($nuevoSaldo);
-				$reptA = $ventaAbono->Abonar();
-				
-				$abonoVenta = new AbonosCliente();
-				$abonoVenta->setId_factura($id_factura);
-				$abonoVenta->setValor($abono);
-				$abonoVenta->setDescripcion($descripcion);
-				$abonoVenta->setFecha($fecha);
-				
-				$reptB = $abonoVenta->RegistrarAbono();
-				
-				if($reptA && $reptB){
+			if($id_factura && $abono && $fecha){
+				$saldoVenta = new Venta();
+				$saldoVenta->setId($id_factura);
+				$valorSald = $saldoVenta->MostrarVentasId();
+
+				while ($row = $valorSald->fetch_object()) {
+					$saldoPendiente = (int)$row->saldo;
+				}			
+				if($saldoPendiente > $abono){
+
+					$nuevoSaldo = $saldoPendiente - $abono;
+					$ventaAbono = new Venta();
+					$ventaAbono->setId($id_factura);
+					$ventaAbono->setSaldo($nuevoSaldo);
+					$reptA = $ventaAbono->Abonar();
+
+					$abonoVenta = new AbonosCliente();
+					$abonoVenta->setId_factura($id_factura);
+					$abonoVenta->setValor($abono);
+					$abonoVenta->setDescripcion($descripcion);
+					$abonoVenta->setFecha($fecha);
+
+					$reptB = $abonoVenta->RegistrarAbono();
+
+					if($reptA && $reptB){
+						echo'<script>
+
+						swal({
+							  type: "success",
+							  title: "Abono registrado Correctamente",
+							  showConfirmButton: true,
+							  confirmButtonText: "Cerrar"
+							  }).then(function(result){
+								if (result.value) {
+
+								window.location = "abonosfactura&id='.$_POST['id'].'";
+
+								}
+							})
+
+						</script>';
+					}
+				}else{
 					echo'<script>
 
-					swal({
-						  type: "success",
-						  title: "Abono registrado Correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
+						swal({
+							  type: "warning",
+							  title: "¡El abono es superior al saldo pendiente!",
+							  showConfirmButton: true,
+							  confirmButtonText: "Cerrar"
+							  }).then(function(result){
+								if (result.value) {
 
-							window.location = "abonosfactura&id='.$_POST['id'].'";
+								window.location = "abonarfactura&id='.$_POST['id'].'";
 
-							}
-						})
+								}
+							})
 
 					</script>';
 				}
 			}else{
 				echo'<script>
 
-					swal({
-						  type: "warning",
-						  title: "¡El abono es superior al saldo pendiente!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
+						swal({
+							  type: "warning",
+							  title: "¡No debes tener campos vacios!",
+							  showConfirmButton: true,
+							  confirmButtonText: "Cerrar"
+							  }).then(function(result){
+								if (result.value) {
 
-							window.location = "abonarfactura&id='.$_POST['id'].'";
+								window.location = "editarabono&id='.$id_factura.'";
 
-							}
-						})
+								}
+							})
 
-			  	</script>';
+				</script>';
 			}
-			
 			
 		}
 	}
@@ -480,68 +499,124 @@ class ClienteController {
 	public function ActualizarAbono() {
 		if($_POST['id']){
 			
-			$id = $_POST['id'];
-			$abonoValor = (int)$_POST['valor'];			
+			$id = isset($_POST['id'])? $_POST['id']:FALSE;
+			$abonoValor = isset($_POST['valor']) ? $_POST['valor']:FALSE;			
 			$descripcion = $_POST['descripcion'];
-			$fecha = $_POST['fecha'];
-			
-			$abono = new AbonosCliente();
-			$abono->setId($id);
-			$DatosAbono = $abono->VerAbonoId();
-			
-			while ($row =$DatosAbono-> fetch_object()) {
-				$id_venta = $row->id_factura;
-				$abonoanterior = (int)$row->valor;
-			}
-			
-			$venta = new Venta();
-			$venta->setId($id_venta);
-			$datoVenta = $venta->MostrarVentasId();
-			
-			while ($row1 = $datoVenta->fetch_object()) {
-				$saldo = (int)$row1->saldo;
-			}
-			$nuevosaldo = $saldo + $abonoanterior;
-			
-			$venta->setSaldo($nuevosaldo);
-			$venta->Abonar();
-			
-			$abono->setId($id);
-			$abono->setValor($abonoValor);
-			$abono->setDescripcion($descripcion);
-			$abono->setFecha($fecha);
-			$respt = $abono->EditarAbono();
-			
-			if($respt){
-				echo'<script>
+			$fecha = isset($_POST['fecha']) ? $_POST['fecha']:FALSE;
+			if($id && $abonoValor && $fecha){
+				$abono = new AbonosCliente();
+				$abono->setId($id);
+				$DatosAbono = $abono->VerAbonoId();
 
-					swal({
-						  type: "success",
-						  title: "Abono actualizado Correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result){
-							if (result.value) {
+				while ($row =$DatosAbono-> fetch_object()) {
+					$id_venta = $row->id_factura;
+					$abonoanterior = (int)$row->valor;
+				}
 
-							window.location = "abonosfactura&id='.$id_venta.'";
+				$venta = new Venta();
+				$venta->setId($id_venta);
+				$datoVenta = $venta->MostrarVentasId();
 
-							}
-						})
+				while ($row1 = $datoVenta->fetch_object()) {
+					$saldo = (int)$row1->saldo;
+				}
+				$nuevosaldo = $saldo + $abonoanterior;
+
+				if($saldo >= $abonoValor){
+
+					$venta->setSaldo($nuevosaldo);
+					$venta->Abonar();
+
+					$nuevovalorA = $nuevosaldo - (int)$abonoValor;
+
+					$venta->setSaldo($nuevovalorA);
+					$venta->Abonar();
+
+					$abono->setId($id);
+					$abono->setValor($abonoValor);
+					$abono->setDescripcion($descripcion);
+					$abono->setFecha($fecha);
+					$respt = $abono->EditarAbono();
+					if($respt){
+					echo'<script>
+
+						swal({
+							  type: "success",
+							  title: "Abono actualizado Correctamente",
+							  showConfirmButton: true,
+							  confirmButtonText: "Cerrar"
+							  }).then(function(result){
+								if (result.value) {
+
+								window.location = "abonosfactura&id='.$id_venta.'";
+
+								}
+							})
+
+						</script>';
+				} else {
+					echo'<script>
+
+						swal({
+							  type: "error",
+							  title: "¡No se pudo registar abono!",
+							  showConfirmButton: true,
+							  confirmButtonText: "Cerrar"
+							  }).then(function(result){
+								if (result.value) {
+
+								window.location = "abonosfactura&id='.$id_venta.'";
+
+								}
+							})
 
 					</script>';
-			} else {
+				}
+				} else {
+					echo'<script>
+
+						swal({
+							  type: "warning",
+							  title: "¡El abono es superior al saldo pendiente!",
+							  showConfirmButton: true,
+							  confirmButtonText: "Cerrar"
+							  }).then(function(result){
+								if (result.value) {
+
+								window.location = "editarabono&id='.$_POST['id'].'";
+
+								}
+							})
+
+					</script>';
+				}
 				
+			}else{
+				echo'<script>
+
+						swal({
+							  type: "warning",
+							  title: "¡No debes tener campos vacios!",
+							  showConfirmButton: true,
+							  confirmButtonText: "Cerrar"
+							  }).then(function(result){
+								if (result.value) {
+
+								window.location = "editarabono&id='.$_POST['id'].'";
+
+								}
+							})
+
+				</script>';
 			}
-			
-			
-			
+						
 			
 		}else{
 			echo'<script>
 
 					swal({
 						  type: "error",
-						  title: "¡Debe selecionar pago relizado !",
+						  title: "¡Debe selecionar una factura para realizar el pago!",
 						  showConfirmButton: true,
 						  confirmButtonText: "Cerrar"
 						  }).then(function(result){

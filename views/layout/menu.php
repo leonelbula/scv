@@ -137,7 +137,7 @@ if (!isset($_SESSION['identity'])) {
         <li class="treeview">
           <a href="#">
             <i class="fa fa-th"></i>
-            <span>Gastos</span>
+            <span>GASTOS</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -202,6 +202,22 @@ if (!isset($_SESSION['identity'])) {
             <li><a href="<?=URL_BASE?>compras/reportecompra"><i class="fa fa-circle-o"></i> Reportes</a></li>
           </ul>
         </li> 
+		<li class="treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span>GASTOS</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+			  <li><a href="<?=URL_BASE?>gastos/"><i class="fa fa-circle-o"></i>Gastos</a></li>     
+            <li><a href="<?=URL_BASE?>gastos/"><i class="fa fa-circle-o"></i>Regitrar Gastos</a></li>     
+      			
+      			<li><a href="<?=URL_BASE?>gastos/reportes"><i class="fa fa-circle-o"></i> Reportes</a></li> 
+          
+          </ul>
+        </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-folder"></i> <span>REPORTES</span>

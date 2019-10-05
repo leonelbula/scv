@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/sistema_bar/views/layout/footer.php</file>
-            <file>file:/C:/wamp64/www/sistema_bar/controllers/ComprasController.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/views/layout/menu.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/models/Gastos.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/views/gastos/reportes.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/views/gastos/editarGastos.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/controllers/PedidoController.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/models/AbonosCliente.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/controllers/GastoController.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/views/gastos/listaGastos.php</file>
+            <file>file:/C:/wamp64/www/sistema_bar/views/gastos/registarGastos.php</file>
         </group>
     </open-files>
 </project-private>
